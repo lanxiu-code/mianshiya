@@ -1,6 +1,5 @@
 package com.lanxiu.mianshiya.mapper;
 
-import com.lanxiu.mianshiya.model.entity.Post;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;

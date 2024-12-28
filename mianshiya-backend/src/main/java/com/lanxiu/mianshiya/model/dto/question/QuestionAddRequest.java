@@ -1,4 +1,4 @@
-package ${packageName}.model.dto.${dataKey};
+package com.lanxiu.mianshiya.model.dto.question;
 
 import lombok.Data;
 
@@ -6,18 +6,13 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 编辑${dataName}请求
+ * 创建题目请求
  *
  * 蓝朽
  *
  */
 @Data
-public class ${upperDataKey}EditRequest implements Serializable {
-
-    /**
-     * id
-     */
-    private Long id;
+public class QuestionAddRequest implements Serializable {
 
     /**
      * 标题
@@ -30,9 +25,14 @@ public class ${upperDataKey}EditRequest implements Serializable {
     private String content;
 
     /**
-     * 标签列表
+     * 标签列表（json 数组）
      */
-    private List<String> tags;
+    private String tags;
+
+    /**
+     * 推荐答案
+     */
+    private String answer;
 
     private static final long serialVersionUID = 1L;
 }

@@ -32,7 +32,7 @@ create table if not exists user
 ) comment '用户' collate = utf8mb4_unicode_ci;
 
 -- 题库表
-create table if not exists question_bank
+create table if not exists question_blank
 (
     id          bigint auto_increment comment 'id' primary key,
     title       varchar(256)                       null comment '标题',
@@ -60,6 +60,17 @@ create table if not exists question
     content    text                               null comment '内容',
     tags       varchar(1024)                      null comment '标签列表（json 数组）',
     answer     text                               null comment '推荐答案',
+    reviewStatus  int      default 0  not null comment '状态：0-待审核, 1-通过, 2-拒绝',
+    reviewMessage varchar(512)        null comment '审核信息',
+    reviewerId    bigint              null comment '审核人 id',
+    reviewTime    datetime            null comment '审核时间',
+    viewNum       int      default 0    not null comment '浏览量',
+    thumbNum      int      default 0    not null comment '点赞数',
+    favourNum     int      default 0    not null comment '收藏数',
+    priority  int  default 0  not null comment '优先级',
+    questionOrder  int  default 0  not null comment '题目顺序（题号）',
+    source   varchar(512)  null comment '题目来源',
+    needVip  tinyint  default 0  not null comment '仅会员可见（1 表示仅会员可见）',
     userId     bigint                             not null comment '创建用户 id',
     editTime   datetime default CURRENT_TIMESTAMP not null comment '编辑时间',
     createTime datetime default CURRENT_TIMESTAMP not null comment '创建时间',
@@ -68,4 +79,17 @@ create table if not exists question
     index idx_title (title),
     index idx_userId (userId)
 ) comment '题目' collate = utf8mb4_unicode_ci;
+
+-- 题库题目表（硬删除）
+create table if not exists question_bank_question
+(
+    id             bigint auto_increment comment 'id' primary key,
+    questionBankId bigint                             not null comment '题库 id',
+    questionId     bigint                             not null comment '题目 id',
+    userId         bigint                             not null comment '创建用户 id',
+    createTime     datetime default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime     datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    UNIQUE (questionBankId, questionId)
+) comment '题库题目' collate = utf8mb4_unicode_ci;
+
 

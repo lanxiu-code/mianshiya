@@ -3,26 +3,22 @@ package com.lanxiu.mianshiya.model.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
 /**
- * 帖子
- *
- * 蓝朽
- * 
+ * 题库
+ * @TableName question_bank
  */
-@TableName(value = "post")
+@TableName(value ="question_blank")
 @Data
-public class Post implements Serializable {
-
+public class QuestionBlank implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -31,29 +27,34 @@ public class Post implements Serializable {
     private String title;
 
     /**
-     * 内容
+     * 描述
      */
-    private String content;
+    private String description;
 
     /**
-     * 标签列表 json
+     * 图片
      */
-    private String tags;
+    private String picture;
 
     /**
-     * 点赞数
+     * 优先级
      */
-    private Integer thumbNum;
+    private Integer priority;
 
     /**
-     * 收藏数
+     * 浏览量
      */
-    private Integer favourNum;
+    private Integer viewNum;
 
     /**
      * 创建用户 id
      */
     private Long userId;
+
+    /**
+     * 编辑时间
+     */
+    private Date editTime;
 
     /**
      * 创建时间
@@ -68,8 +69,27 @@ public class Post implements Serializable {
     /**
      * 是否删除
      */
-    @TableLogic
     private Integer isDelete;
+
+    /**
+     * 状态：0-待审核, 1-通过, 2-拒绝
+     */
+    private Integer reviewStatus;
+
+    /**
+     * 审核信息
+     */
+    private String reviewMessage;
+
+    /**
+     * 审核人 id
+     */
+    private Long reviewerId;
+
+    /**
+     * 审核时间
+     */
+    private Date reviewTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
